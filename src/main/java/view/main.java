@@ -24,9 +24,13 @@ public class main extends javax.swing.JFrame {
      * Creates new form main
      */
     public main() {
+        // super method
         super("To do list..");
+        // properties/methods that effect view
         this.setVisible(true);
         this.setResizable(false);
+        this.isAlwaysOnTop();
+        // back-end methods
         initComponents();
         tasks();
     }

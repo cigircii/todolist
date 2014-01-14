@@ -5,6 +5,8 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import models.Task;
 import models.TaskDAO;
@@ -27,7 +29,25 @@ public class addTask extends javax.swing.JFrame {
     public addTask() {
         super("Task..");
         initComponents();
-        
+        start();
+        jDateChooser1.setEnabled(false);
+
+    }
+
+    public void start() {
+
+        final Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            public void run() {
+                if (jTextField1.getText().length() < 2) {
+                    jDateChooser1.setEnabled(false);
+                } else {
+                    jDateChooser1.setEnabled(true);
+                    t.cancel();
+                }
+            }
+        }, 0, 100);
+
     }
 
     /**
@@ -46,8 +66,6 @@ public class addTask extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "School", "Business", "Personal", "Other" }));
 
@@ -127,12 +145,14 @@ public class addTask extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        
+//        while (jTextField1.getText().length() > 2) {
+//            jDateChooser1.setEnabled(true);
+//        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         TaskDAO tDao = new TaskDAO();
-        
+
         if (jDateChooser1.getDate() != null) {
             String date = "" + jDateChooser1.getDate();
             String todo = jTextField1.getText();
@@ -157,21 +177,20 @@ public class addTask extends javax.swing.JFrame {
                     e.printStackTrace();
                 }
                 cleanUp();
-                //this.dispose();
             }
         }
-
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_AddActionPerformed
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-
     }//GEN-LAST:event_jTextField1FocusGained
 
     private void cleanUp() {
         jTextField1.setText("");
         jComboBox1.setSelectedIndex(0);
         jDateChooser1.setCalendar(null);
+        jDateChooser1.setEnabled(false);
+        
 
     }
 

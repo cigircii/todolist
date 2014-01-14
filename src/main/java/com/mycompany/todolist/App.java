@@ -12,7 +12,8 @@ public class App {
     public static void main(String[] args) {
         main v = new main();
         v.setLocationRelativeTo(null);
-        v.isAlwaysOnTop();
+        
+       
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

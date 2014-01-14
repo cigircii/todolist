@@ -25,7 +25,7 @@ public class Connection {
     public Connection() {
         DBURL = "jdbc:mysql://localhost/todolist";
         DBUSER = "root";
-        DBPASS = "";
+        DBPASS = "welkom12";
     }
 
     public void startConnection() {
