@@ -8,7 +8,8 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import models.Task;
 import models.TaskDAO;
 
@@ -20,6 +21,8 @@ public class main extends javax.swing.JFrame {
 
     private List<Task> task = null;
     private boolean editMode = false;
+    private JPopupMenu popup;
+    private JMenuItem menuItem, menuItem2, menuItem3, menuItem4;
 
     /**
      * Creates new form main
@@ -37,6 +40,21 @@ public class main extends javax.swing.JFrame {
     }
 
     public void tasks() {
+        
+        if (editMode) {
+            popup = new JPopupMenu();
+
+            menuItem = new JMenuItem("Delete");
+            menuItem2 = new JMenuItem("menu-item");
+            menuItem3 = new JMenuItem("menu-item");
+            menuItem4 = new JMenuItem("menu-item");
+
+            popup.add(menuItem);
+            popup.add(menuItem2);
+            popup.add(menuItem3);
+            popup.add(menuItem4);
+        }
+
         try {
             TaskDAO t = new TaskDAO();
             task = t.readAllTasks();
@@ -177,9 +195,11 @@ public class main extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(jTable2);
-        jTable2.getColumnModel().getColumn(0).setResizable(false);
-        jTable2.getColumnModel().getColumn(1).setResizable(false);
-        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,17 +212,16 @@ public class main extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
         jMenu1.setText("File");
         jMenu1.setToolTipText("");
         jMenu1.setContentAreaFilled(false);
-        jMenu1.setOpaque(false);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\workplz\\Documents\\GitHub\\todolist\\src\\main\\java\\resources\\1389753904_plus-24.png")); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1389753904_plus-24.png"))); // NOI18N
         jMenuItem1.setText("Add");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,7 +231,7 @@ public class main extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\workplz\\Documents\\GitHub\\todolist\\src\\main\\java\\resources\\1380635235_exit.png")); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1380635235_exit.png"))); // NOI18N
         jMenuItem2.setText("Exit");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +244,8 @@ public class main extends javax.swing.JFrame {
 
         JMenu2.setText("Edit");
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\workplz\\Documents\\GitHub\\todolist\\src\\main\\java\\resources\\1389766153_85.png")); // NOI18N
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1389766153_85.png"))); // NOI18N
         jMenuItem5.setText("Turn edit mode on..");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,7 +255,7 @@ public class main extends javax.swing.JFrame {
         JMenu2.add(jMenuItem5);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon("C:\\Users\\workplz\\Documents\\GitHub\\todolist\\src\\main\\java\\resources\\1389764123_trash.png")); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1389764123_trash.png"))); // NOI18N
         jMenuItem3.setText("Empty all tasks");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,28 +329,40 @@ public class main extends javax.swing.JFrame {
             jMenuItem5.setText("Turn edit mode off..");
 
             // edit mode enables table editing
-
             jTable2.setEnabled(editMode);
+            tasks();
 
         } else {
             editMode = false;
             jMenuItem5.setText("Turn edit mode on..");
 
             // disable table from being edited
-
             jTable2.setEnabled(editMode);
             jTable2.clearSelection();
+            tasks();
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        
+
         addTask a;
 
-        if (editMode) {
-            if (jTable2.getSelectedRow() < task.size()) {
-                a = new addTask(task.get(jTable2.getSelectedRow()));
-                a.setVisible(true);
+        if (evt.getButton() == evt.BUTTON3) {
+            if (editMode) {
+                if (jTable2.getSelectedRow() < task.size()) {
+
+                    popup.show(evt.getComponent(), evt.getX(), evt.getY());
+
+                }
+            }
+        }
+
+        if (evt.getButton() == evt.BUTTON1) {
+            if (editMode) {
+                if (jTable2.getSelectedRow() < task.size()) {
+                    a = new addTask(task.get(jTable2.getSelectedRow()));
+                    a.setVisible(true);
+                }
             }
         }
     }//GEN-LAST:event_jTable2MouseClicked

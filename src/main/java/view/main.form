@@ -35,7 +35,6 @@
             <Property name="text" type="java.lang.String" value="File"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
-            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -44,7 +43,7 @@
                   <KeyStroke key="F2"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\workplz\Documents\GitHub\todolist\src\main\java\resources\1389753904_plus-24.png"/>
+                  <Image iconType="3" name="/1389753904_plus-24.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
@@ -58,7 +57,7 @@
                   <KeyStroke key="Alt+F4"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\workplz\Documents\GitHub\todolist\src\main\java\resources\1380635235_exit.png"/>
+                  <Image iconType="3" name="/1380635235_exit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
@@ -75,8 +74,11 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F4"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\workplz\Documents\GitHub\todolist\src\main\java\resources\1389766153_85.png"/>
+                  <Image iconType="3" name="/1389766153_85.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Turn edit mode on.."/>
               </Properties>
@@ -90,7 +92,7 @@
                   <KeyStroke key="Ctrl+F3"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\workplz\Documents\GitHub\todolist\src\main\java\resources\1389764123_trash.png"/>
+                  <Image iconType="3" name="/1389764123_trash.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Empty all tasks"/>
               </Properties>
@@ -153,7 +155,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jScrollPane2" pref="659" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="661" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>

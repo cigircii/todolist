@@ -5,16 +5,24 @@ package models;
  * @author workplz
  */
 public class Task {
-    
+
+    private int id;
     private String voor;
     private String wat;
     private String waneer;
-    
-    public Task(){
-        
+
+    public Task() {
+
     }
 
-    public Task(String voor, String wat, String waneer) {
+    public Task(String voor, String wat, String waneer, int id) {
+        this.voor = voor;
+        this.wat = wat;
+        this.waneer = waneer;
+        this.id = id;
+    }
+    
+        public Task(String voor, String wat, String waneer) {
         this.voor = voor;
         this.wat = wat;
         this.waneer = waneer;
@@ -24,6 +32,14 @@ public class Task {
         return voor;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setVoor(String voor) {
         this.voor = voor;
     }

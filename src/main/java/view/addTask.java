@@ -39,7 +39,7 @@ public class addTask extends javax.swing.JFrame {
         super("Task..");
         this.setResizable(false);
         initComponents();
-
+        System.out.println(task.getId());
         editMode = true;
         jDateChooser1.setEnabled(true);
         jTextField1.setText(task.getWat());
@@ -191,7 +191,7 @@ public class addTask extends javax.swing.JFrame {
                 }
 
                 if (jTextField1.getText() != null && date != null) {
-
+                    
                     System.out.println(jTextField1.getText() + "\t" + jComboBox1.getSelectedItem() + "\t" + readableDate(date));
                     Task t = new Task(comboItem, todo, readableDate(date));
                     task.add(t);

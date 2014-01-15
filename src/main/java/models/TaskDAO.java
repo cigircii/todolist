@@ -73,6 +73,7 @@ public class TaskDAO {
 
         while (rs.next()) {
             Task tempTask = new Task();
+            tempTask.setId(rs.getInt("id"));
             tempTask.setVoor(rs.getString("voor"));
             tempTask.setWat(rs.getString("wat"));
             tempTask.setWaneer(rs.getString("waneer"));
