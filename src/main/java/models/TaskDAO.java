@@ -20,6 +20,28 @@ public class TaskDAO {
 
     Connection conn = new Connection();
 
+    public void updateTask(Task task) throws SQLException {
+        PreparedStatement prdstmt = null;
+
+        String sql = "UPDATE `tasks` SET `voor`=?, `wat`=?, `waneer`=? WHERE `id`=?";
+
+        conn.startConnection();
+        prdstmt = conn.getConnection().prepareStatement(sql);
+        
+        prdstmt.setString(1, task.getVoor());
+        prdstmt.setString(2, task.getWat());
+        prdstmt.setString(3, task.getWaneer());
+        prdstmt.setInt(4, task.getId());
+        
+        prdstmt.executeUpdate();
+        
+        System.out.println("updated");
+        
+        if(conn != null){
+            conn.close();
+        }
+    }
+
     public void insertTask(Task task) throws SQLException {
         PreparedStatement prdstmt = null;
 
@@ -29,11 +51,8 @@ public class TaskDAO {
         prdstmt = conn.getConnection().prepareStatement(sql);
 
         prdstmt.setString(1, task.getVoor());
-        System.out.println("DB : " + task.getVoor());
         prdstmt.setString(2, task.getWat());
-        System.out.println("DB : " + task.getWat());
         prdstmt.setString(3, task.getWaneer());
-        System.out.println("DB : " + task.getWaneer());
 
         prdstmt.executeUpdate();
 
@@ -49,12 +68,12 @@ public class TaskDAO {
         PreparedStatement prdstmt;
 
         String sql = "DELETE FROM `todolist`.`tasks`";
-        
+
         conn.startConnection();
-        
+
         prdstmt = conn.getConnection().prepareStatement(sql);
         prdstmt.executeUpdate();
-        
+
         JOptionPane.showMessageDialog(null, "Emptied all tasks");
 
     }

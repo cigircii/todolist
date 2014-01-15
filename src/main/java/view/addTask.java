@@ -19,6 +19,7 @@ public class addTask extends javax.swing.JFrame {
 
     private ArrayList<Task> task = new ArrayList<Task>();
     private boolean editMode = false;
+    private int id;
 
     public ArrayList<Task> getTask() {
         return task;
@@ -39,13 +40,15 @@ public class addTask extends javax.swing.JFrame {
         super("Task..");
         this.setResizable(false);
         initComponents();
+
         System.out.println(task.getId());
         editMode = true;
+
+
+        id = task.getId();
         jDateChooser1.setEnabled(true);
         jTextField1.setText(task.getWat());
-        //jDateChooser1.setDate(task.getWaneer());
         jComboBox1.setSelectedItem(task.getVoor());
-        System.out.println(task.getVoor());
 
     }
 
@@ -191,7 +194,7 @@ public class addTask extends javax.swing.JFrame {
                 }
 
                 if (jTextField1.getText() != null && date != null) {
-                    
+
                     System.out.println(jTextField1.getText() + "\t" + jComboBox1.getSelectedItem() + "\t" + readableDate(date));
                     Task t = new Task(comboItem, todo, readableDate(date));
                     task.add(t);
@@ -204,6 +207,35 @@ public class addTask extends javax.swing.JFrame {
                 }
             }
         }
+
+        if (editMode) {
+
+            String date = "" + jDateChooser1.getDate();
+            String todo = jTextField1.getText();
+            String comboItem = "" + jComboBox1.getSelectedItem();
+            
+            if ("".equals(date)) {
+                JOptionPane.showMessageDialog(null, "No deadline has been selected");
+            }
+
+            if ("".equals(jTextField1.getText())) {
+                JOptionPane.showMessageDialog(null, "No to-do assignment has been listed");
+            }
+            
+            if (jTextField1.getText() != null && date != null) {
+
+                    System.out.println(jTextField1.getText() + "\t" + jComboBox1.getSelectedItem() + "\t" + readableDate(date));
+                    Task t = new Task(comboItem, todo, readableDate(date), id);
+                    
+                    try {
+                        tDao.updateTask(t);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    cleanUp();
+                }
+
+        }
         dispose();
     }//GEN-LAST:event_AddActionPerformed
 
@@ -211,8 +243,8 @@ public class addTask extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1FocusGained
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
-        if(editMode){
-            this.dispose();
+        if (editMode) {
+            //this.dispose();
         }
     }//GEN-LAST:event_formWindowLostFocus
 

@@ -352,6 +352,7 @@ public class main extends javax.swing.JFrame {
                 if (jTable2.getSelectedRow() < task.size()) {
 
                     popup.show(evt.getComponent(), evt.getX(), evt.getY());
+                    System.out.println(jTable2.getSelectedRow());
 
                 }
             }
