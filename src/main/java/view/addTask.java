@@ -31,8 +31,8 @@ public class addTask extends javax.swing.JFrame {
         initComponents();
         start();
         jDateChooser1.setEnabled(false);
-
     }
+    
 
     public void start() {
 
@@ -66,6 +66,15 @@ public class addTask extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "School", "Business", "Personal", "Other" }));
 
@@ -184,6 +193,10 @@ public class addTask extends javax.swing.JFrame {
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
     }//GEN-LAST:event_jTextField1FocusGained
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        
+    }//GEN-LAST:event_formWindowLostFocus
 
     private void cleanUp() {
         jTextField1.setText("");
