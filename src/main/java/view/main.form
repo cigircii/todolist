@@ -76,9 +76,9 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\workplz\Documents\GitHub\todolist\src\main\java\resources\1389765938_write.png"/>
+                  <Image iconType="2" name="C:\Users\workplz\Documents\GitHub\todolist\src\main\java\resources\1389766153_85.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Edit mode"/>
+                <Property name="text" type="java.lang.String" value="Turn edit mode on.."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
@@ -208,6 +208,9 @@
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable2MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

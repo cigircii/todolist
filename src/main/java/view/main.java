@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.Task;
 import models.TaskDAO;
 
@@ -18,6 +19,7 @@ import models.TaskDAO;
 public class main extends javax.swing.JFrame {
 
     private List<Task> task = null;
+    private boolean editMode = false;
 
     /**
      * Creates new form main
@@ -169,6 +171,11 @@ public class main extends javax.swing.JFrame {
         });
         jTable2.setEnabled(false);
         jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
         jTable2.getColumnModel().getColumn(0).setResizable(false);
         jTable2.getColumnModel().getColumn(1).setResizable(false);
@@ -218,8 +225,8 @@ public class main extends javax.swing.JFrame {
 
         JMenu2.setText("Edit");
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\workplz\\Documents\\GitHub\\todolist\\src\\main\\java\\resources\\1389765938_write.png")); // NOI18N
-        jMenuItem5.setText("Edit mode");
+        jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\workplz\\Documents\\GitHub\\todolist\\src\\main\\java\\resources\\1389766153_85.png")); // NOI18N
+        jMenuItem5.setText("Turn edit mode on..");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -297,8 +304,36 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        if (!editMode) {
+            editMode = true;
+            jMenuItem5.setText("Turn edit mode off..");
+
+            // edit mode enables table editing
+
+            jTable2.setEnabled(editMode);
+
+        } else {
+            editMode = false;
+            jMenuItem5.setText("Turn edit mode on..");
+
+            // disable table from being edited
+
+            jTable2.setEnabled(editMode);
+            jTable2.clearSelection();
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        
+        addTask a;
+
+        if (editMode) {
+            if (jTable2.getSelectedRow() < task.size()) {
+                a = new addTask(task.get(jTable2.getSelectedRow()));
+                a.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
