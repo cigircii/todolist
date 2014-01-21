@@ -4,11 +4,9 @@
  */
 package view;
 
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import models.Task;
 import models.TaskDAO;
@@ -40,7 +38,7 @@ public class main extends javax.swing.JFrame {
     }
 
     public void tasks() {
-        
+
         if (editMode) {
             popup = new JPopupMenu();
 
@@ -283,23 +281,6 @@ public class main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        PrintWriter write = null;
-        addTask a = new addTask();
-        try {
-            write = new PrintWriter(new OutputStreamWriter(new FileOutputStream("todolist.txt"), "utf-8"));
-            write.println(a.getTask());
-
-            System.out.println("Written");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                write.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         System.exit(0);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -347,13 +328,31 @@ public class main extends javax.swing.JFrame {
 
         addTask a;
 
+        int tempId;
+
+        // delete method on right-click
+
         if (evt.getButton() == evt.BUTTON3) {
             if (editMode) {
-                if (jTable2.getSelectedRow() < task.size()) {
+                if (jTable2.rowAtPoint(evt.getPoint()) < task.size()) {
 
-                    popup.show(evt.getComponent(), evt.getX(), evt.getY());
-                    System.out.println(jTable2.getSelectedRow());
+                    tempId = task.get(jTable2.rowAtPoint(evt.getPoint())).getId();
+                    int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \"" + task.get(jTable2.rowAtPoint(evt.getPoint())).getWat() + "\"", "Warning!", JOptionPane.YES_NO_OPTION);
 
+                    if (i == JOptionPane.YES_OPTION) {
+                        System.out.println("Yes'd");
+                        try {
+                            TaskDAO t = new TaskDAO();
+                            t.deleteTask(tempId);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("No'd");
+                    }
+                } else {
+                    // other code for outside of rows, maybe add tasks through right-click?
+                    System.out.println("Out of row count...");
                 }
             }
         }
@@ -362,7 +361,9 @@ public class main extends javax.swing.JFrame {
             if (editMode) {
                 if (jTable2.getSelectedRow() < task.size()) {
                     a = new addTask(task.get(jTable2.getSelectedRow()));
+                    a.setLocationRelativeTo(null);
                     a.setVisible(true);
+
                 }
             }
         }

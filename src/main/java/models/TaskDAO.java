@@ -20,6 +20,22 @@ public class TaskDAO {
 
     Connection conn = new Connection();
 
+    public void deleteTask(int id) throws SQLException {
+        PreparedStatement prdstmt = null;
+        String sql = "DELETE FROM `tasks` WHERE id=?";
+
+        conn.startConnection();
+        prdstmt = conn.getConnection().prepareStatement(sql);
+
+        prdstmt.setInt(1, id);
+        prdstmt.executeUpdate();
+        System.out.println("deleted");
+
+        if (conn != null) {
+            conn.close();
+        }
+    }
+
     public void updateTask(Task task) throws SQLException {
         PreparedStatement prdstmt = null;
 
@@ -27,17 +43,17 @@ public class TaskDAO {
 
         conn.startConnection();
         prdstmt = conn.getConnection().prepareStatement(sql);
-        
+
         prdstmt.setString(1, task.getVoor());
         prdstmt.setString(2, task.getWat());
         prdstmt.setString(3, task.getWaneer());
         prdstmt.setInt(4, task.getId());
-        
+
         prdstmt.executeUpdate();
-        
+
         System.out.println("updated");
-        
-        if(conn != null){
+
+        if (conn != null) {
             conn.close();
         }
     }

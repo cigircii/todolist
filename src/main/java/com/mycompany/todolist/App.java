@@ -1,6 +1,5 @@
 package com.mycompany.todolist;
 
-import javax.swing.UIManager;
 import view.main;
 
 /**
@@ -12,8 +11,7 @@ public class App {
     public static void main(String[] args) {
         main v = new main();
         v.setLocationRelativeTo(null);
-        
-       
+
 
 //        try {
 //            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
