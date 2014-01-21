@@ -73,7 +73,7 @@ public class main extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < task.size(); i++) {
-            //System.out.println(list.get(i).getVoor());
+
 
             jTable2.getModel().setValueAt(task.get(i).getVoor(), i, 0);
             jTable2.getModel().setValueAt(task.get(i).getWat(), i, 1);
@@ -327,41 +327,72 @@ public class main extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
         addTask a;
+        TaskDAO t = new TaskDAO();
         int tempId;
+
 
         // delete method on right-click
 
-        if (evt.getButton() == evt.BUTTON3) {
-            if (editMode) {
-                if (jTable2.rowAtPoint(evt.getPoint()) < task.size()) {
-                    tempId = task.get(jTable2.rowAtPoint(evt.getPoint())).getId();
-                    int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \"" + task.get(jTable2.rowAtPoint(evt.getPoint())).getWat() + "\"", "Warning!", JOptionPane.YES_NO_OPTION);
 
-                    if (i == JOptionPane.YES_OPTION) {
-                        System.out.println("Yes'd");
-                        try {
-                            TaskDAO t = new TaskDAO();
-                            t.deleteTask(tempId);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+        if (evt.getButton() == evt.BUTTON3) {
+            int[] s = jTable2.getSelectedRows();
+
+            System.out.println("Length: " + s.length);
+            if (s.length > 1) {
+                int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete all these records? ", "Warning!", JOptionPane.YES_NO_OPTION);
+                if (i == JOptionPane.YES_OPTION) {
+
+                    for (int sPart : s) {
+                        if (sPart < task.size()) {
+                            try {
+                                System.out.println("----");
+                                System.out.println("Part : " + sPart);
+                                System.out.println("ID : " + task.get(sPart).getId());
+                                System.out.println("----");
+                                t.deleteTask(task.get(sPart).getId());
+                                
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        jTable2.clearSelection();
+                    }
+                }
+            } else {
+
+                if (editMode) {
+                    if (jTable2.rowAtPoint(evt.getPoint()) < task.size()) {
+                        tempId = task.get(jTable2.rowAtPoint(evt.getPoint())).getId();
+                        int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \"" + task.get(jTable2.rowAtPoint(evt.getPoint())).getWat() + "\"", "Warning!", JOptionPane.YES_NO_OPTION);
+
+                        if (i == JOptionPane.YES_OPTION) {
+                            System.out.println("Yes'd");
+                            try {
+                                t.deleteTask(tempId);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            System.out.println("No'd");
                         }
                     } else {
-                        System.out.println("No'd");
+                        // other code for outside of rows, maybe add tasks through right-click?
+                        System.out.println("Out of row count...");
                     }
-                } else {
-                    // other code for outside of rows, maybe add tasks through right-click?
-                    System.out.println("Out of row count...");
                 }
             }
-        }
 
-        if (evt.getButton() == evt.BUTTON1) {
-            if (editMode) {
-                if (jTable2.getSelectedRow() < task.size()) {
-                    a = new addTask(task.get(jTable2.getSelectedRow()));
-                    a.setLocationRelativeTo(null);
-                    a.setVisible(true);
+            if (evt.getButton() == evt.BUTTON1) {
+                if (editMode) {
+                    if (jTable2.getSelectedRow() < task.size()) {
+                        a = new addTask(task.get(jTable2.getSelectedRow()));
+                        a.setLocationRelativeTo(null);
+                        a.setVisible(true);
 
+                    }
                 }
             }
         }

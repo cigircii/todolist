@@ -33,9 +33,7 @@ public class Connection {
             Class.forName(DRIVER);
             DriverManager.setLoginTimeout(5);
             conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
-
-            System.out.println("Connected");
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

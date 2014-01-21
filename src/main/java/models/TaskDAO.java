@@ -119,8 +119,6 @@ public class TaskDAO {
             conn.close();
         }
 
-        System.out.println(list);
-
         return list;
 
     }
