@@ -327,7 +327,6 @@ public class main extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
         addTask a;
-
         int tempId;
 
         // delete method on right-click
@@ -335,7 +334,6 @@ public class main extends javax.swing.JFrame {
         if (evt.getButton() == evt.BUTTON3) {
             if (editMode) {
                 if (jTable2.rowAtPoint(evt.getPoint()) < task.size()) {
-
                     tempId = task.get(jTable2.rowAtPoint(evt.getPoint())).getId();
                     int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \"" + task.get(jTable2.rowAtPoint(evt.getPoint())).getWat() + "\"", "Warning!", JOptionPane.YES_NO_OPTION);
 

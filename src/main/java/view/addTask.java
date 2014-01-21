@@ -205,28 +205,34 @@ public class addTask extends javax.swing.JFrame {
                     }
                     cleanUp();
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "No deadline has been selected");
             }
         }
 
         if (editMode) {
+            if (jDateChooser1.getDate() != null) {
 
-            String date = "" + jDateChooser1.getDate();
-            String todo = jTextField1.getText();
-            String comboItem = "" + jComboBox1.getSelectedItem();
-            
-            if ("".equals(date)) {
-                JOptionPane.showMessageDialog(null, "No deadline has been selected");
-            }
+                String date = "" + jDateChooser1.getDate();
+                //System.out.println("This is date \"" + date + "\"");
+                String todo = jTextField1.getText();
+                String comboItem = "" + jComboBox1.getSelectedItem();
 
-            if ("".equals(jTextField1.getText())) {
-                JOptionPane.showMessageDialog(null, "No to-do assignment has been listed");
-            }
-            
-            if (jTextField1.getText() != null && date != null) {
+                if ("".equals(date) || " ".equals(date)) {
+                    JOptionPane.showMessageDialog(null, "No deadline has been selected");
+                }
+
+                if ("".equals(jTextField1.getText())) {
+                    JOptionPane.showMessageDialog(null, "No to-do assignment has been listed");
+                }
+
+                if (jTextField1.getText() != null && date != null) {
 
                     System.out.println(jTextField1.getText() + "\t" + jComboBox1.getSelectedItem() + "\t" + readableDate(date));
                     Task t = new Task(comboItem, todo, readableDate(date), id);
-                    
+
+                    System.out.println(t);
+
                     try {
                         tDao.updateTask(t);
                     } catch (Exception e) {
@@ -235,6 +241,9 @@ public class addTask extends javax.swing.JFrame {
                     cleanUp();
                 }
 
+            }else{
+                JOptionPane.showMessageDialog(null, "No deadline has been selected");
+            }
         }
         dispose();
     }//GEN-LAST:event_AddActionPerformed
@@ -263,8 +272,9 @@ public class addTask extends javax.swing.JFrame {
         readableDate = date.substring(4, 10);
         readableDate = readableDate.replace("\\s+", "");
         readableDate = readableDate.toUpperCase();
-
         return readableDate;
+
+
     }
 
     /**
