@@ -73,12 +73,12 @@ public class main extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < task.size(); i++) {
+            if (i < 39) {
 
-
-            jTable2.getModel().setValueAt(task.get(i).getVoor(), i, 0);
-            jTable2.getModel().setValueAt(task.get(i).getWat(), i, 1);
-            jTable2.getModel().setValueAt(task.get(i).getWaneer(), i, 2);
-
+                jTable2.getModel().setValueAt(task.get(i).getVoor(), i, 0);
+                jTable2.getModel().setValueAt(task.get(i).getWat(), i, 1);
+                jTable2.getModel().setValueAt(task.get(i).getWaneer(), i, 2);
+            }
         }
     }
 
@@ -350,7 +350,7 @@ public class main extends javax.swing.JFrame {
                                 System.out.println("ID : " + task.get(sPart).getId());
                                 System.out.println("----");
                                 t.deleteTask(task.get(sPart).getId());
-                                
+
 
 
                             } catch (Exception e) {
