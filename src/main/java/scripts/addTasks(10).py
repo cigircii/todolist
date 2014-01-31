@@ -12,7 +12,7 @@ except Exception as e:
 
 try:
     x = 0
-    for x in range (1, 10):
+    for x in range (1, 20):
         x += 1
         sql = "INSERT INTO `todolist`.`tasks` (`id`, `voor`, `wat`, `waneer`, `timestamp`) VALUES (NULL, 'Python', 'Script-added', 'PYTHON-DATE', CURRENT_TIMESTAMP)"
         cursor.execute(sql)

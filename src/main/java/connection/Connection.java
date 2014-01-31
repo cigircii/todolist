@@ -4,10 +4,13 @@
  */
 package connection;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  *
@@ -15,17 +18,29 @@ import java.sql.SQLException;
  */
 public class Connection {
 
+    Properties prop = new Properties();
+    InputStream input = null;
     public static String DRIVER = "com.mysql.jdbc.Driver";
     public static String DBURL;
     public static String DBUSER;
     public static String DBPASS;
+    
     private ResultSet result = null;
     java.sql.Connection conn = null;
 
     public Connection() {
-        DBURL = "jdbc:mysql://localhost/todolist";
-        DBUSER = "root";
-        DBPASS = "welkom12";
+        try {
+            
+            input = new FileInputStream("config.properties");
+            prop.load(input);
+
+            DBURL = "jdbc:mysql://localhost/todolist";
+            DBUSER = prop.getProperty("dbuser");
+            DBPASS = prop.getProperty("dbpass");;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void startConnection() {
@@ -33,7 +48,7 @@ public class Connection {
             Class.forName(DRIVER);
             DriverManager.setLoginTimeout(5);
             conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
