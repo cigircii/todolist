@@ -62,6 +62,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "task{" + "voor=" + voor + ", wat=" + wat + ", waneer=" + waneer + '}';
+        return "Task{ " + "voor=" + voor + ", wat=" + wat + ", waneer=" + waneer + " }";
     }
 }

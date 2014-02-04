@@ -19,8 +19,6 @@ public class main extends javax.swing.JFrame {
 
     private List<Task> task = null;
     private boolean editMode = false;
-    private JPopupMenu popup;
-    private JMenuItem menuItem, menuItem2, menuItem3, menuItem4;
 
     /**
      * Creates new form main
@@ -28,7 +26,7 @@ public class main extends javax.swing.JFrame {
     public main() {
         // super method
         super("To do list..");
-        // properties/methods that effect view
+        // properties/methods that affect view
         this.setVisible(true);
         this.setResizable(false);
         this.isAlwaysOnTop();
@@ -38,21 +36,6 @@ public class main extends javax.swing.JFrame {
     }
 
     public void tasks() {
-
-        if (editMode) {
-            popup = new JPopupMenu();
-
-            menuItem = new JMenuItem("Delete");
-            menuItem2 = new JMenuItem("menu-item");
-            menuItem3 = new JMenuItem("menu-item");
-            menuItem4 = new JMenuItem("menu-item");
-
-            popup.add(menuItem);
-            popup.add(menuItem2);
-            popup.add(menuItem3);
-            popup.add(menuItem4);
-        }
-
         try {
             TaskDAO t = new TaskDAO();
             task = t.readAllTasks();
@@ -210,7 +193,7 @@ public class main extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -330,10 +313,7 @@ public class main extends javax.swing.JFrame {
         TaskDAO t = new TaskDAO();
         int tempId;
 
-
-        // delete method on right-click
-
-
+        // delete method on right-clickl
         if (evt.getButton() == evt.BUTTON3) {
             int[] s = jTable2.getSelectedRows();
 
@@ -345,13 +325,8 @@ public class main extends javax.swing.JFrame {
                     for (int sPart : s) {
                         if (sPart < task.size()) {
                             try {
-                                System.out.println("----");
-                                System.out.println("Part : " + sPart);
-                                System.out.println("ID : " + task.get(sPart).getId());
-                                System.out.println("----");
+                                System.out.println("Deleted rows of tasks.");
                                 t.deleteTask(task.get(sPart).getId());
-
-
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -384,15 +359,16 @@ public class main extends javax.swing.JFrame {
                     }
                 }
             }
+        }
+        
+        // edit task on left-click
+        if (evt.getButton() == evt.BUTTON1) {
+            if (editMode) {
+                if (jTable2.getSelectedRow() < task.size()) {
+                    a = new addTask(task.get(jTable2.getSelectedRow()));
+                    a.setLocationRelativeTo(null);
+                    a.setVisible(true);
 
-            if (evt.getButton() == evt.BUTTON1) {
-                if (editMode) {
-                    if (jTable2.getSelectedRow() < task.size()) {
-                        a = new addTask(task.get(jTable2.getSelectedRow()));
-                        a.setLocationRelativeTo(null);
-                        a.setVisible(true);
-
-                    }
                 }
             }
         }

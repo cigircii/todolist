@@ -32,6 +32,8 @@ public class addTask extends javax.swing.JFrame {
         super("Task..");
         this.setResizable(false);
         initComponents();
+        Add.setText("Add");
+        
         start();
         jDateChooser1.setEnabled(false);
     }
@@ -43,7 +45,8 @@ public class addTask extends javax.swing.JFrame {
 
         System.out.println(task.getId());
         editMode = true;
-
+        
+        Add.setText("Edit");
 
         id = task.getId();
         jDateChooser1.setEnabled(true);
@@ -179,6 +182,7 @@ public class addTask extends javax.swing.JFrame {
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
         TaskDAO tDao = new TaskDAO();
+        
         if (!editMode) {
             if (jDateChooser1.getDate() != null) {
                 String date = "" + jDateChooser1.getDate();
@@ -203,7 +207,6 @@ public class addTask extends javax.swing.JFrame {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    cleanUp();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No deadline has been selected");
@@ -216,7 +219,7 @@ public class addTask extends javax.swing.JFrame {
                 String date = "" + jDateChooser1.getDate();
                 //System.out.println("This is date \"" + date + "\"");
                 String todo = jTextField1.getText();
-                String comboItem = "" + jComboBox1.getSelectedItem();
+                String comboItem = "" + jComboBox1.getSelectedItem();     
 
                 if ("".equals(date) || " ".equals(date)) {
                     JOptionPane.showMessageDialog(null, "No deadline has been selected");
@@ -238,7 +241,6 @@ public class addTask extends javax.swing.JFrame {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    cleanUp();
                 }
 
             }else{
@@ -256,15 +258,6 @@ public class addTask extends javax.swing.JFrame {
             //this.dispose();
         }
     }//GEN-LAST:event_formWindowLostFocus
-
-    private void cleanUp() {
-        jTextField1.setText("");
-        jComboBox1.setSelectedIndex(0);
-        jDateChooser1.setCalendar(null);
-        jDateChooser1.setEnabled(false);
-
-
-    }
 
     private String readableDate(String date) {
         String readableDate = date;

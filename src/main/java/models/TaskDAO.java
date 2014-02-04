@@ -19,17 +19,33 @@ import javax.swing.JOptionPane;
 public class TaskDAO {
 
     Connection conn = new Connection();
+    
 
     public void deleteTask(int id) throws SQLException {
+        
         PreparedStatement prdstmt = null;
+        ResultSet rs;
         String sql = "DELETE FROM `tasks` WHERE id=?";
+        String sql_confirm = "SELECT * FROM `tasks` WHERE id=?";
 
         conn.startConnection();
+        
+        prdstmt = conn.getConnection().prepareCall(sql_confirm);
+        prdstmt.setInt(1, id);
+        
+        rs = conn.performSelect(prdstmt);
+        
+        if(rs.next()){
+            Task t = new Task();
+            t.setVoor(rs.getString("wat"));
+            System.out.println("Deleted task: " + t.getWat());
+        }
+        
         prdstmt = conn.getConnection().prepareStatement(sql);
 
         prdstmt.setInt(1, id);
         prdstmt.executeUpdate();
-        System.out.println("deleted");
+        
 
         if (conn != null) {
             conn.close();
@@ -51,7 +67,7 @@ public class TaskDAO {
 
         prdstmt.executeUpdate();
 
-        System.out.println("updated");
+        System.out.println("Updated task to: " + task);
 
         if (conn != null) {
             conn.close();
@@ -72,7 +88,7 @@ public class TaskDAO {
 
         prdstmt.executeUpdate();
 
-        System.out.println("inserted");
+        System.out.println("New task: " + task);
 
         if (conn != null) {
             conn.close();

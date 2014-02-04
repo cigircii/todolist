@@ -24,7 +24,7 @@ public class Connection {
     public static String DBURL;
     public static String DBUSER;
     public static String DBPASS;
-    
+
     private ResultSet result = null;
     java.sql.Connection conn = null;
 
@@ -34,9 +34,10 @@ public class Connection {
             input = new FileInputStream("config.properties");
             prop.load(input);
 
-            DBURL = "jdbc:mysql://localhost/todolist";
+            DBURL = "jdbc:mysql://86.83.79.192:3306/todolist?zeroDateTimeBehavior=convertToNull";
             DBUSER = prop.getProperty("dbuser");
-            DBPASS = prop.getProperty("dbpass");;
+            DBPASS = prop.getProperty("dbpass");
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,6 +49,7 @@ public class Connection {
             Class.forName(DRIVER);
             DriverManager.setLoginTimeout(5);
             conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
+            
 
         } catch (Exception e) {
             e.printStackTrace();
